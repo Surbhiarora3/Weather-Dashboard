@@ -8,3 +8,5 @@ Pull 5-day forecasts at 3-hour intervals using the OpenWeatherMap API
 Print the average Min/Max temperatures for each day
 Average the Min temperatures for each day and post that at in a new column
 Average the Max temperatures for each day and post that at in a new column
+
+image.png
