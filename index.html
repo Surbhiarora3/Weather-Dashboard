@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <h1 class="header">Weather Dashboard</h1>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+    <h1 id="para1"></h1>
+    <div class="search-container">
+    <p ><input type ="text" id ="cityInput" placeholder="Search City.." name="search" >
+
+<button id="GetInfo" class="button">Go</button> 
+
+    <div>
+</p>
+    <div id="myDIV">
+    </div>  
+
+    <!-- <div class="MainBox" >Weather  -->
+        <div class="center"> 
+        <h5 id="date"></h5>
+  <h1 id="maxTemp"></h1>
+    <!-- <h2 id="minTemp"></h2> -->
+  <p id="humidity">
+
+<p id="pressure"></h2>
+    </div>
+
+    <div id="weatherContainer">
+        <div id="iconsContainer">
+            <div class="icons">
+                <p class=" weather" id = "day1"></p>
+                <div class="Image">
+                <p class="minTemp" id="day1min"></p>
+                <p class="MaxTemp" id ="day1Max"></p>
+                
+                </div></div>
+                <div class="icons">
+                    <p class=" weather" id = "day2"></p>
+                    <div class="Image">
+                    <p class="minTemp" id="day2min"></p>
+                    <p class="MaxTemp" id ="day2Max"></p>
+                </div></div>
+                <div class="icons">
+                        <p class=" weather" id = "day3"></p>
+                        <div class="Image">
+                        <p class="minTemp" id="day3min"></p>
+                        <p class="MaxTemp" id ="day3Max"></p>
+                     </div> </div>
+                <div class="icons">
+                        <p class=" weather" id = "day4"></p>
+                        <div class="Image">
+                        <p class="minTemp" id="day4min"></p>
+                        <p class="MaxTemp" id ="day4Max"></p>
+                        </div>   </div>
+                <div class="icons">
+                            <p class=" weather" id = "day5"></p>
+                            <div class="Image">
+                            <p class="minTemp" id="day5min"></p>
+                            <p class="MaxTemp" id ="day5Max"></p>
+                            </div>        </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</body>
+</html>
+
