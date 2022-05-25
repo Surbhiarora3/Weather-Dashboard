@@ -1,168 +1,70 @@
-/* #GetInfo{
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 50px;
-    background: transparent;
-    border: transparent;
-    font-size: 20px;
-    color: #4b00ff;
-    cursor: pointer;
-    outline: 0;
-} */
+var historyObj = { city: [] };
 
-button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+function onLoad() {
+  if(localStorage.getItem('history')) {
+    historyObj = JSON.parse(localStorage.getItem('history'));
+    console.log("onLoad",historyObj);
+
+    historyObj.city.forEach((e) => {
+        // const searchedElement = document.createElement("h4");
+        const searchedElement = document.createElement("button");
+        searchedElement.textContent = e;
+        document.getElementById("myDIV").appendChild(searchedElement);
+      });
   }
-
-.card {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-}
-.center{
-    position: relative;
-    top: 50%;
-    left:50%
 }
 
-  .search-container button:hover {
-    background: #ccc;
-  }
-  
-/* *{color: rgb(7, 1, 1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
+function addHistory(dataToSave) {
+  historyObj.city=[];
+  historyObj.city.push(dataToSave);
+  localStorage.setItem('history',JSON.stringify(historyObj));
+}
 
-.header{
-    background-color:blue;
-    text-align: center;
+$("#GetInfo").click(function()
+{
+    var cityName=document.getElementById("cityInput").value
+    addHistory(cityName)
+    FetchWeatherData(cityName)
+    onLoad()
+});
+const apiKey="50bf1553654ba1e936bafd8eb4c33b7f";
+function tempFormatter(temperature) {
+
+  return Math.floor((temperature - 273.15) * 1.8 + 32);
+
+}
+function FetchWeatherData(cityName)
+{
+fetch('https://api.openweathermap.org/data/2.5/forecast?q='+cityName+'&exclude=daily&appid='+ apiKey)
+.then(response => response.json())
+
+.then (data =>
+    {
+        var str=data.list[0].dt_txt;
+var datePart=str.split(" ");
+
+      console.log(data.list[0].dt_txt);
+      document.getElementById("maxTemp").innerHTML = tempFormatter( data.list[3].main.temp)+"&#176F";
+      document.getElementById("humidity").innerHTML = "Humidity:"+ Number( data.list[3].main.humidity);
+      document.getElementById("date").innerHTML = datePart[0];//data.list[0].dt_txt;
+      document.getElementById("pressure").innerHTML = "Pressure:"+ data.list[0].main.pressure;
     
-}
- /* #inputContainer{
-    
-padding:5px;
-text-align:left;
-font-size:20px;
-font-weight:bold;
-} */
-.MainBox{
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    max-width: 500px;
-    margin: 0 auto; 
-    /* box-sizing: border-box;
-    /* display: inline-bock; */
-    /* height: 350px; */
-    /* width: 400px; */
-    /* margin-right :200px; */
-    /* border: 5px solid rgb(48, 47, 47); */
-    border-radius: 10px;
-    /* float: right; */
+        document.getElementById("day1Max").innerHTML =  + tempFormatter(data.list[0 * 8 + 4].main.temp_max) + " &#176F";
+        document.getElementById("day1").innerHTML = (new Date(data.list[0 * 8 + 4].dt * 1000)).getDate();//day;
 
-    margin-bottom: 0px;
-    margin-right: 0px;
-    margin-left: 0px;
-    margin-top: 0px; 
+        document.getElementById("day2Max").innerHTML =  + tempFormatter(data.list[1 * 8 + 4].main.temp_max) + " &#176F";
+        document.getElementById("day2").innerHTML = (new Date(data.list[1 * 8 + 4].dt * 1000)).getDate();
 
-    top: 50%;
-    left:50%
-
-    
-}
-    
- #weatherContainer{
-position: absolute;
-    top: 70%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    height: 300px;
-    width: 1300px;
-    border: 5px solid rgba(97, 95, 95, 0.829);    
-    border-radius: 10px;
-}
-
-#iconsContainer{
-    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    height: 240px;
-    width: 1200px;    
-    border: 5px solid rgb(31, 82, 82);    
-    border-radius: 10px;
-}
-
-.icons{
-    background-color: aqua;
-    display: inline-bock;
-    float: left;
-    height: 200px;
-    width: 190px;
-    margin: 20px;
-    border: 5px solid rgb(48, 47, 47);
-    border-radius: 10px;
-}
-
-.image{
-    height: 140px;
-    width: 100%;
-}
-
-.imgClass{
-    height: 140px;
-    width: 100%;
-}
-
-.weather{
-    margin: 5px;
-   /*  background-color: rgb(106, 215, 255); */
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.minValues{
-    text-align: center;
-    display: inline-block;
-    border-radius: 5px;
-    height: 25px;
-    width: 85px;
-    margin: 0;
-    margin-bottom: 5px;
-    margin-left: 5px;
-}
+        document.getElementById("day3Max").innerHTML =  + tempFormatter(data.list[2 * 8 + 4].main.temp_max) + " &#176F";
+        document.getElementById("day3").innerHTML = (new Date(data.list[2 * 8 + 4].dt * 1000)).getDate();
 
 
-.maxValues{
-    text-align: center;
-    display: inline-block;
-    border-radius: 5px;
-    height: 25px;
-    width: 85px;
-    margin: 0;
-    margin-bottom: 5px;
-    margin-left: 5px;
+        document.getElementById("day4Max").innerHTML = + tempFormatter(data.list[3 * 8 + 4].main.temp_max) + " &#176F";
+        document.getElementById("day4").innerHTML = (new Date(data.list[3 * 8 + 4].dt * 1000)).getDate();
+
+
+        document.getElementById("day5Max").innerHTML = + tempFormatter(data.list[4 * 8 + 4].main.temp_max) + " &#176F";
+        document.getElementById("day5").innerHTML = (new Date(data.list[4 * 8 + 4].dt * 1000)).getDate();
+
+    });
 }
